@@ -1,6 +1,6 @@
 package br.com.consultorio.consultorio_api.model;
 
-import br.com.consultorio.consultorio_api.dto.DadosMedicoDTO;
+import br.com.consultorio.consultorio_api.dto.DadosCadastroMedicoDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -20,6 +20,7 @@ public class Medico {
     private Long id;
     private String nome;
     private String email;
+    private String telefone;
     private String crm;
 
     @Enumerated(EnumType.STRING)
@@ -29,16 +30,17 @@ public class Medico {
     private Endereco endereco;
 
     //CONSTRUTOR QUE CONVERTE DTO -> ENTITY
-    public Medico (DadosMedicoDTO dados){
+    public Medico (DadosCadastroMedicoDTO dados){
         this.nome = dados.nome();
         this.email = dados.email();
+        this.telefone = dados.telefone();
         this.crm = dados.crm();
         this.especialidade = dados.especialidade();
         this.endereco = new Endereco(dados.endereco());
     }
 
     //CONVERTE ENTITY -> DTO
-    public DadosMedicoDTO toDTO() {
-        return new DadosMedicoDTO(nome, email, crm, especialidade, endereco);
+    public DadosCadastroMedicoDTO toDTO() {
+        return new DadosCadastroMedicoDTO(nome, email, crm, telefone, especialidade, endereco);
     }
 }

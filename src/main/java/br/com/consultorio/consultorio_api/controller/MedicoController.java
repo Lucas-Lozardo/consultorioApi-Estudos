@@ -1,13 +1,14 @@
 package br.com.consultorio.consultorio_api.controller;
 
-import br.com.consultorio.consultorio_api.dto.DadosMedicoDTO;
+import br.com.consultorio.consultorio_api.dto.DadosCadastroMedicoDTO;
+import br.com.consultorio.consultorio_api.dto.DadosListagemMedicoDTO;
 import br.com.consultorio.consultorio_api.service.MedicoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/medicos")
@@ -16,10 +17,16 @@ public class MedicoController {
     @Autowired
     MedicoService service;
 
+
     @PostMapping
     @Transactional
-    public void cadastrarMedico(@RequestBody DadosMedicoDTO json){
+    public void cadastrarMedico(@RequestBody @Valid DadosCadastroMedicoDTO json){
         service.cadastrarNovoMedico(json);
 
+    }
+
+    @GetMapping
+    public List<DadosListagemMedicoDTO> listarMedicoDTO(){
+        return service.listarMedicoDTO();
     }
 }
