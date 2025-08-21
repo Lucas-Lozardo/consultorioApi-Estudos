@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MedicoService {
@@ -18,8 +19,9 @@ public class MedicoService {
 
 
     //POST  DTO -> ENTITY
-    public void cadastrarNovoMedico(DadosCadastroMedicoDTO dadosDTO){
-        repository.save(new Medico(dadosDTO));
+    @Transactional
+    public Medico cadastrarNovoMedico(DadosCadastroMedicoDTO dadosDTO){
+        return repository.save(new Medico(dadosDTO));
     }
 
     //GET
@@ -28,12 +30,15 @@ public class MedicoService {
     }
 
     //PUT
-    public void AtualizarMedico(DadosAtualizarMedicoDTO dto){
+    @Transactional
+    public Medico atualizarMedico(DadosAtualizarMedicoDTO dto){
         var medico = repository.getReferenceById(dto.id());
         medico.atualizarDados(dto);
+        return medico;
     }
 
     //DELETE
+    @Transactional
     public void inativarMedico(Long id){
         var medico = repository.getReferenceById(id);
         medico.inativo();
