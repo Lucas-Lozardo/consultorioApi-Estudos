@@ -3,7 +3,7 @@ package br.com.consultorio.consultorio_api.dto;
 import br.com.consultorio.consultorio_api.model.Endereco;
 import jakarta.validation.constraints.NotNull;
 
-public record DadosAtualizarMedicoDTO(
+public record DadosAtualizarPacienteDTO(
 
         @NotNull
         Long id,

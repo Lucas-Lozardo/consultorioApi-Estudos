@@ -34,7 +34,7 @@ public class MedicoService {
     }
 
     //DELETE
-    public void apagarMedico(Long id){
+    public void inativarMedico(Long id){
         var medico = repository.getReferenceById(id);
         medico.inativo();
         //repository.deleteById(id);  FUNÇÃO PARA APAGAR DEFINITIVAMENTE DO BD.

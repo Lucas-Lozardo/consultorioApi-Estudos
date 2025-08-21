@@ -1,5 +1,6 @@
 package br.com.consultorio.consultorio_api.service;
 
+import br.com.consultorio.consultorio_api.dto.DadosAtualizarPacienteDTO;
 import br.com.consultorio.consultorio_api.dto.DadosCadastroPacienteDTO;
 import br.com.consultorio.consultorio_api.dto.DadosListagemPacienteDTO;
 import br.com.consultorio.consultorio_api.model.Paciente;
@@ -16,11 +17,21 @@ public class PacienteService {
     @Autowired
     PacienteRepository repository;
 
-    public void cadastrarPaciente (@RequestBody DadosCadastroPacienteDTO dto){
+    public void cadastrarPaciente (DadosCadastroPacienteDTO dto){
         repository.save(new Paciente(dto));
     }
 
     public Page<DadosListagemPacienteDTO> listarPacientesDTO(Pageable paginacao){
-        return repository.findAll(paginacao).map(DadosListagemPacienteDTO::new);
+        return repository.findAllByAtivoTrue(paginacao).map(DadosListagemPacienteDTO::new);
+    }
+
+    public void atualizarPaciente(DadosAtualizarPacienteDTO dto){
+        var paciente = repository.getReferenceById(dto.id());
+        paciente.atualizarDados(dto);
+    }
+
+    public void inativarPaciente(Long id){
+        var paciente = repository.getReferenceById(id);
+        paciente.inativo();
     }
 }

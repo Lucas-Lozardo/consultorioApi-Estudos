@@ -43,7 +43,7 @@ public class MedicoController {
 
     @DeleteMapping ("/{id}")
     @Transactional
-    public void apagarMedico(@PathVariable Long id){
-        service.apagarMedico(id);
+    public void inativarMedico(@PathVariable Long id){
+        service.inativarMedico(id);
     }
 }
