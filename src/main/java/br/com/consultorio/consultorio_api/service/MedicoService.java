@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 public class MedicoService {
 
@@ -43,6 +45,10 @@ public class MedicoService {
         var medico = repository.getReferenceById(id);
         medico.inativo();
         //repository.deleteById(id);  FUNÇÃO PARA APAGAR DEFINITIVAMENTE DO BD.
+    }
+
+    public Medico localizarMedicoPorId(Long id){
+        return repository.getReferenceById(id);
     }
 
 }

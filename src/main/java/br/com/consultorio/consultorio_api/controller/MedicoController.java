@@ -4,6 +4,7 @@ import br.com.consultorio.consultorio_api.dto.DadosAtualizarMedicoDTO;
 import br.com.consultorio.consultorio_api.dto.DadosCadastroMedicoDTO;
 import br.com.consultorio.consultorio_api.dto.DadosDetalhamentoMedicoDTO;
 import br.com.consultorio.consultorio_api.dto.DadosListagemMedicoDTO;
+import br.com.consultorio.consultorio_api.model.Medico;
 import br.com.consultorio.consultorio_api.service.MedicoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/medicos")
@@ -50,5 +53,11 @@ public class MedicoController {
     public ResponseEntity inativarMedico(@PathVariable Long id){
         service.inativarMedico(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping ("/{id}")
+    public ResponseEntity localizarMedicoPorId(@PathVariable Long id){
+        var medico = service.localizarMedicoPorId(id);
+        return ResponseEntity.ok(new DadosDetalhamentoMedicoDTO(medico));
     }
 }
