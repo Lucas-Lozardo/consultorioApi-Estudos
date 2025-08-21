@@ -16,18 +16,14 @@ public class Endereco {
     @NotBlank
     @Pattern(regexp = "\\d{8}")
     private String cep;
-
     @NotBlank
     private String logradouro;
     private String numero;
     private String complemento;
-
     @NotBlank
     private String bairro;
-
     @NotBlank
     private String cidade;
-
     @NotBlank
     private String uf;
 

@@ -1,5 +1,6 @@
 package br.com.consultorio.consultorio_api.model;
 
+import br.com.consultorio.consultorio_api.dto.DadosCadastroPacienteDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -19,10 +20,18 @@ public class Paciente {
     private Long id;
     private String nome;
     private String email;
-
-    @Enumerated(EnumType.STRING)
-    private Especialidade especialidade;
+    private String telefone;
+    private String cpf;
 
     @Embedded
     private Endereco endereco;
+
+    public Paciente(DadosCadastroPacienteDTO dto) {
+        this.nome = dto.nome();;
+        this.email = dto.email();
+        this.telefone = dto.telefone();
+        this.cpf = dto.cpf();
+        this.endereco = new Endereco(dto.endereco());
+
+    }
 }

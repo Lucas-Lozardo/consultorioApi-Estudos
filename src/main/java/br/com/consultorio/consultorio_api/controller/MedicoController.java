@@ -5,6 +5,10 @@ import br.com.consultorio.consultorio_api.dto.DadosListagemMedicoDTO;
 import br.com.consultorio.consultorio_api.service.MedicoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +30,7 @@ public class MedicoController {
     }
 
     @GetMapping
-    public List<DadosListagemMedicoDTO> listarMedicoDTO(){
-        return service.listarMedicoDTO();
+    public Page<DadosListagemMedicoDTO> listarMedicoDTO(@PageableDefault(size = 10, sort = {"nome"}, direction = Sort.Direction.ASC) Pageable paginacao){
+        return service.listarMedicoDTO(paginacao);
     }
 }
