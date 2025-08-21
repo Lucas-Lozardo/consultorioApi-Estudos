@@ -1,5 +1,6 @@
 package br.com.consultorio.consultorio_api.controller;
 
+import br.com.consultorio.consultorio_api.dto.DadosAtualizarMedicoDTO;
 import br.com.consultorio.consultorio_api.dto.DadosCadastroMedicoDTO;
 import br.com.consultorio.consultorio_api.dto.DadosListagemMedicoDTO;
 import br.com.consultorio.consultorio_api.service.MedicoService;
@@ -32,5 +33,17 @@ public class MedicoController {
     @GetMapping
     public Page<DadosListagemMedicoDTO> listarMedicoDTO(@PageableDefault(size = 10, sort = {"nome"}, direction = Sort.Direction.ASC) Pageable paginacao){
         return service.listarMedicoDTO(paginacao);
+    }
+
+    @PutMapping
+    @Transactional
+    public void atualizarMedico(@RequestBody @Valid DadosAtualizarMedicoDTO json){
+        service.AtualizarMedico(json);
+    }
+
+    @DeleteMapping ("/{id}")
+    @Transactional
+    public void apagarMedico(@PathVariable Long id){
+        service.apagarMedico(id);
     }
 }
