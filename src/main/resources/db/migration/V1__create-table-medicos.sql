@@ -1,6 +1,6 @@
 CREATE TABLE medicos(
 
-    id bigserial not null,
+    id bigserial PRIMARY KEY,
     nome varchar (100) not null,
     email varchar (100) not null unique,
     crm varchar (6) not null unique,
