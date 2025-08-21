@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PacienteService {
@@ -17,21 +17,29 @@ public class PacienteService {
     @Autowired
     PacienteRepository repository;
 
-    public void cadastrarPaciente (DadosCadastroPacienteDTO dto){
-        repository.save(new Paciente(dto));
+    @Transactional
+    public Paciente cadastrarPaciente (DadosCadastroPacienteDTO dto){
+        return repository.save(new Paciente(dto));
     }
 
     public Page<DadosListagemPacienteDTO> listarPacientesDTO(Pageable paginacao){
         return repository.findAllByAtivoTrue(paginacao).map(DadosListagemPacienteDTO::new);
     }
 
-    public void atualizarPaciente(DadosAtualizarPacienteDTO dto){
+    @Transactional
+    public Paciente atualizarPaciente(DadosAtualizarPacienteDTO dto){
         var paciente = repository.getReferenceById(dto.id());
-        paciente.atualizarDados(dto);
+         paciente.atualizarDados(dto);
+         return paciente;
     }
 
+    @Transactional
     public void inativarPaciente(Long id){
         var paciente = repository.getReferenceById(id);
         paciente.inativo();
+    }
+
+    public Paciente localizarPacientePorId(Long id){
+        return repository.getReferenceById(id);
     }
 }
