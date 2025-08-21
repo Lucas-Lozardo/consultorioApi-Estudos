@@ -1,4 +1,4 @@
-package br.com.consultorio.consultorio_api.infra;
+package br.com.consultorio.consultorio_api.infra.exception;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
