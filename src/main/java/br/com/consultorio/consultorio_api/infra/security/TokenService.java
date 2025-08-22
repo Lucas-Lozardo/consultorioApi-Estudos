@@ -16,7 +16,7 @@ import java.util.Date;
 @Service
 public class TokenService {
 
-    @Value("{api.security.token.secret}")       //APPLICATION.PROPERTIES
+    @Value("${api.security.token.secret}")       //APPLICATION.PROPERTIES
     private String secret;
 
     public String gerarToken(Usuario usuario){
