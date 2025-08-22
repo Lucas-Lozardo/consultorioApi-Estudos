@@ -1,4 +1,4 @@
-CREATE TABLE medicos(
+CREATE TABLE IF NOT EXISTS medicos(
 
     id bigserial PRIMARY KEY,
     nome varchar (100) not null,

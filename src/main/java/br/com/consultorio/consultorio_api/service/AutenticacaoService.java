@@ -1,4 +1,4 @@
-package br.com.consultorio.consultorio_api.model.usuario;
+package br.com.consultorio.consultorio_api.service;
 
 import br.com.consultorio.consultorio_api.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
