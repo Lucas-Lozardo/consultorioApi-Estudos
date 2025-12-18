@@ -2,11 +2,14 @@ package br.com.consultorio.consultorio_api.validacoes;
 
 import br.com.consultorio.consultorio_api.dto.DadosAgendamentoConsultaDTO;
 import br.com.consultorio.consultorio_api.infra.exception.ValidacaoException;
+import br.com.consultorio.consultorio_api.interfaces.ValidadorAgendamentoDeConsulta;
+import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-public class validadorHorarioAntecedencia {
+@Component
+public class validadorHorarioAntecedencia implements ValidadorAgendamentoDeConsulta {
 
     public void validar(DadosAgendamentoConsultaDTO dados){
 
