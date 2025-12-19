@@ -1,6 +1,7 @@
 package br.com.consultorio.consultorio_api.service;
 
 import br.com.consultorio.consultorio_api.dto.DadosAgendamentoConsultaDTO;
+import br.com.consultorio.consultorio_api.dto.DadosDetalhamentoConsultaDTO;
 import br.com.consultorio.consultorio_api.infra.exception.ValidacaoException;
 import br.com.consultorio.consultorio_api.interfaces.ValidadorAgendamentoDeConsulta;
 import br.com.consultorio.consultorio_api.model.Medico;
@@ -28,7 +29,7 @@ public class AgendaDeConsultasService {
     @Autowired
     private List<ValidadorAgendamentoDeConsulta> validadores;
 
-    public void agendar(DadosAgendamentoConsultaDTO dados){
+    public DadosDetalhamentoConsultaDTO agendar(DadosAgendamentoConsultaDTO dados){
 
         if (dados.idMedico() != null && !medicoRepository.existsById(dados.idMedico())){
             throw new ValidacaoException("Id do médico não existe");
@@ -41,11 +42,16 @@ public class AgendaDeConsultasService {
         validadores.forEach(v -> v.validar(dados));
 
         var medico = escolherMedico(dados);
+        if (medico == null){
+            throw new ValidacaoException("Não existe médico disponível nessa data!");
+        }
         var paciente = pacienteRepository.getReferenceById(dados.idPaciente());
         var consulta = new Consulta(null, medico, paciente, dados.data());
 
 
         repo.save(consulta);
+
+        return new DadosDetalhamentoConsultaDTO(consulta);
     }
 
     private Medico escolherMedico(DadosAgendamentoConsultaDTO dados) {

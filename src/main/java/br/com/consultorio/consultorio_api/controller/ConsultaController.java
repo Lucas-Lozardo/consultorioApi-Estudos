@@ -23,8 +23,8 @@ public class ConsultaController {
     @Transactional
     public ResponseEntity agendar(@RequestBody @Valid DadosAgendamentoConsultaDTO dados){
 
-        service.agendar(dados);
+        var dto = service.agendar(dados);
 
-        return ResponseEntity.ok(new DadosDetalhamentoConsultaDTO(null, null, null, null));
+        return ResponseEntity.ok(dto);
     }
 }

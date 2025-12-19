@@ -22,6 +22,11 @@ public class TratadorDeErros {
                 .map(DadosErrosValidacao::new).toList());
     }
 
+    @ExceptionHandler(ValidacaoException.class)
+    public ResponseEntity tratarErroRegraDeNegocio(MethodArgumentNotValidException e){
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
+
     private record DadosErrosValidacao(String campo, String mensagem){
         public DadosErrosValidacao(FieldError erro){
             this(erro.getField(), erro.getDefaultMessage());
