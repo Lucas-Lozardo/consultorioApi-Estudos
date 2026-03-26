@@ -1,4 +1,4 @@
-Clinic Management API
+### Clinic Management API
 
 Backend API designed to manage patient data and streamline basic clinic operations, improving organization and data access.
 
